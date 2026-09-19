@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>Olympiades de la Pêche</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&family=Chivo:ital,wght@0,400;0,600;0,800;1,400&family=Chivo+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --paper:#ECF1EE;--surface:#DFE7E2;--surface-2:#D2DCD6;
+    --ink:#101F1A;--ink-soft:#485A53;--ink-faint:#7E8D86;--line:#BECBC4;
+    --eau:#0D6455;--eau-ink:#0B564A;--eau-bg:#D3E4DE;
+    --dose:#B4481B;--dose-bg:#F6E1D5;
+    --or:#8A6D14;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --paper:#0B1512;--surface:#132019;--surface-2:#1C2A23;
+    --ink:#E6EEE9;--ink-soft:#A2B1AA;--ink-faint:#71807A;--line:#2A3A33;
+    --eau:#3FB59B;--eau-ink:#5ECBB2;--eau-bg:#10302A;
+    --dose:#EE8B5C;--dose-bg:#3A2117;
+    --or:#D9B44A;
+  }}
+  :root[data-theme="dark"]{
+    --paper:#0B1512;--surface:#132019;--surface-2:#1C2A23;
+    --ink:#E6EEE9;--ink-soft:#A2B1AA;--ink-faint:#71807A;--line:#2A3A33;
+    --eau:#3FB59B;--eau-ink:#5ECBB2;--eau-bg:#10302A;
+    --dose:#EE8B5C;--dose-bg:#3A2117;
+    --or:#D9B44A;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Chivo','Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.5}
+  .wrap{max-width:880px;margin-inline:auto;padding-inline:20px}
+
+  .nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;
+    background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;gap:4px;align-items:center;overflow-x:auto;padding-block:9px;scrollbar-width:none}
+  .nav-in::-webkit-scrollbar{display:none}
+  .nav a{font-family:'Chivo Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--ink-soft);text-decoration:none;white-space:nowrap;
+    padding:5px 9px;border-radius:2px}
+  .nav a:hover{color:var(--ink);background:var(--surface)}
+  .nav .brand{font-family:'Antonio',Impact,sans-serif;font-weight:700;font-size:17px;
+    color:var(--eau-ink);margin-right:auto;padding-right:10px;white-space:nowrap}
+
+  header.hero{padding-block:44px 30px}
+  .eyebrow{font-family:'Chivo Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink-faint);margin:0 0 14px}
+  h1{font-family:'Antonio',Impact,sans-serif;font-weight:700;font-size:clamp(50px,13.5vw,106px);
+    line-height:.87;margin:0;text-transform:uppercase;text-wrap:balance}
+  h1 em{font-style:normal;color:var(--eau)}
+  .lede{margin:18px 0 0;max-width:38em;font-size:17px;color:var(--ink-soft)}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .stamp{border:1px solid var(--line);background:var(--surface);border-radius:3px;
+    padding:9px 13px;display:flex;flex-direction:column;gap:2px}
+  .stamp .k{font-family:'Chivo Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-faint)}
+  .stamp .v{font-weight:600;font-size:15px;font-variant-numeric:tabular-nums}
+  .stamp.fort{background:var(--eau);border-color:var(--eau);color:#fff}
+  .stamp.fort .k{color:rgba(255,255,255,.7)}
+
+  section{margin-top:52px;scroll-margin-top:62px}
+  h2{font-family:'Antonio',Impact,sans-serif;font-weight:700;font-size:36px;line-height:1;
+    text-transform:uppercase;margin:0 0 6px}
+  .sec-note{color:var(--ink-faint);font-size:14.5px;margin:0 0 22px;max-width:46em}
+  h3.sub{font-family:'Chivo Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--ink-faint);margin:28px 0 12px;font-weight:600}
+
+  .regles{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px}
+  .rcard{border:1px solid var(--line);background:var(--surface);border-radius:3px;padding:16px 17px}
+  .rcard .n{font-family:'Antonio',Impact,sans-serif;font-size:32px;line-height:1;color:var(--eau);margin-bottom:6px}
+  .rcard h4{margin:0 0 6px;font-size:16px;font-weight:800}
+  .rcard p{margin:0;font-size:14.5px;color:var(--ink-soft)}
+
+  table{width:100%;border-collapse:collapse;font-size:15px}
+  .tw{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line)}
+  tr:last-child td{border-bottom:none}
+  th{font-family:'Chivo Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-faint);font-weight:600;background:var(--surface-2)}
+  td.num{font-family:'Chivo Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums;
+    font-weight:600;white-space:nowrap}
+  td b{font-weight:800}
+
+  /* poisson */
+  .poisson{border:2px solid var(--eau);border-radius:4px;background:var(--eau-bg);padding:20px 22px}
+  .poisson h3{font-family:'Antonio',Impact,sans-serif;font-weight:700;font-size:28px;line-height:1;
+    text-transform:uppercase;margin:0 0 4px;color:var(--eau-ink)}
+  .poisson p.i{margin:0 0 14px;font-size:14.5px;color:var(--ink-soft)}
+  .poisson ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:7px}
+  .poisson li{font-size:15px}
+
+  /* epreuves */
+  .ep{display:grid;grid-template-columns:58px 1fr;gap:0 18px;padding:24px 0;border-top:1px solid var(--line)}
+  .ep:first-of-type{border-top:2px solid var(--ink)}
+  .ep .no{font-family:'Antonio',Impact,sans-serif;font-weight:700;font-size:40px;line-height:.9;
+    color:var(--eau);font-variant-numeric:tabular-nums}
+  .ep.fin .no{font-size:26px;color:var(--or);line-height:1.2}
+  .ep h3{margin:0 0 8px;font-family:'Antonio',Impact,sans-serif;font-weight:700;font-size:28px;
+    line-height:1;text-transform:uppercase;text-wrap:balance}
+  .ep.fin h3{color:var(--or)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+  .chip{font-family:'Chivo Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em;
+    text-transform:uppercase;background:var(--surface);border:1px solid var(--line);
+    border-radius:2px;padding:4px 8px;color:var(--ink-soft)}
+  .ep p{margin:0;font-size:15.5px;color:var(--ink-soft);max-width:54ch}
+  .dose{margin-top:12px;border-left:3px solid var(--dose);background:var(--dose-bg);
+    padding:10px 14px;border-radius:0 3px 3px 0}
+  .dose span{font-family:'Chivo Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--dose);font-weight:600;display:block;margin-bottom:3px}
+  .dose p{font-size:14.5px;color:var(--ink);max-width:54ch}
+  .matos{margin-top:11px;font-size:13.5px;color:var(--ink-faint)}
+  .matos b{font-family:'Chivo Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-faint)}
+
+  /* scores */
+  .board{border:1px solid var(--line);border-radius:3px;overflow:hidden}
+  .team{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:center;
+    padding:12px 14px;background:var(--surface);border-bottom:1px solid var(--line)}
+  .team:last-child{border-bottom:none}
+  .team .nom{font-family:'Antonio',Impact,sans-serif;font-size:24px;text-transform:uppercase;line-height:1}
+  .team .pts{font-family:'Chivo Mono',ui-monospace,monospace;font-size:22px;font-weight:600;
+    font-variant-numeric:tabular-nums;min-width:3.2ch;text-align:right}
+  .team button{width:36px;height:36px;border-radius:2px;border:1px solid var(--line);
+    background:var(--surface-2);color:var(--ink);font-size:19px;font-weight:600;cursor:pointer;line-height:1}
+  .team button:hover{background:var(--eau);border-color:var(--eau);color:#fff}
+  .team button:focus-visible{outline:2px solid var(--eau);outline-offset:2px}
+  .board-foot{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .reset{font-family:'Chivo Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.09em;
+    text-transform:uppercase;font-weight:600;background:transparent;color:var(--ink-soft);
+    border:1px solid var(--line);padding:8px 12px;border-radius:2px;cursor:pointer}
+  .reset:hover{background:var(--surface-2);color:var(--ink)}
+  .local-note{font-size:12.5px;color:var(--ink-faint);margin:0;font-style:italic}
+
+  /* courses */
+  .courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:14px}
+  .liste{border:1px solid var(--line);background:var(--surface);border-radius:3px;padding:16px 18px}
+  .liste h4{font-family:'Chivo Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-faint);margin:0 0 11px;font-weight:600}
+  .liste ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+  .liste li{font-size:14.5px;padding-left:15px;position:relative;color:var(--ink-soft)}
+  .liste li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;
+    background:var(--eau);border-radius:50%}
+
+  .capitaine{border-left:3px solid var(--eau);padding:2px 0 2px 16px;max-width:46em}
+  .capitaine p{margin:0 0 9px;font-size:15.5px;color:var(--ink-soft)}
+  .capitaine b{color:var(--ink)}
+
+  footer{margin-top:56px;padding-block:22px 40px;border-top:1px solid var(--line);
+    font-family:'Chivo Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--ink-faint);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+  @media (max-width:560px){
+    .ep{grid-template-columns:44px 1fr;gap:0 14px}
+    .ep .no{font-size:32px}
+    .team{grid-template-columns:1fr auto auto;row-gap:8px}
+    .team .nom{grid-column:1/-1}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<nav class="nav"><div class="wrap nav-in">
+  <span class="brand">Olympiades</span>
+  <a href="index.html">← Roadbook</a>
+  <a href="#regles">Règles</a>
+  <a href="#planning">Planning</a>
+  <a href="#epreuves">Épreuves</a>
+  <a href="#scores">Scores</a>
+  <a href="#courses">Courses</a>
+</div></nav>
+
+<div class="wrap">
+  <header class="hero">
+    <p class="eyebrow">EVG de JB · Samedi 10 octobre</p>
+    <h1>Olympiades<br>de la <em>Pêche</em></h1>
+    <p class="lede">Dix épreuves dans le jardin de Châteauneuf, de 14h à 19h. Quatre équipes, un barème, une monnaie unique — la gorgée — et un seul gros poisson à sortir de l'eau : JB.</p>
+    <div class="hero-meta">
+      <div class="stamp fort"><span class="k">Durée</span><span class="v">14:00 → 19:00</span></div>
+      <div class="stamp"><span class="k">Équipes</span><span class="v">4 × 3 joueurs</span></div>
+      <div class="stamp"><span class="k">Épreuves</span><span class="v">9 + 1 finale</span></div>
+      <div class="stamp"><span class="k">Terrain</span><span class="v">Jardin de la maison</span></div>
+    </div>
+  </header>
+
+  <section id="regles">
+    <h2>Le règlement</h2>
+    <p class="sec-note">Cinq règles, pas une de plus. Tout ce qui n'est pas prévu se tranche au bras de fer.</p>
+    <div class="regles">
+      <div class="rcard"><div class="n">01</div><h4>Quatre équipes</h4><p>Tirage au sort à 14h. Les Silures, les Brochets, les Sandres, les Goujons. À adapter si vous êtes moins de douze : trois équipes, même barème.</p></div>
+      <div class="rcard"><div class="n">02</div><h4>Le barème</h4><p>Par épreuve : 10 points au premier, 6 au deuxième, 3 au troisième, 1 au dernier. La finale compte double.</p></div>
+      <div class="rcard"><div class="n">03</div><h4>La gorgée</h4><p>C'est la monnaie du tournoi. Elle se gagne, se perd, se mise et se refile. Une gorgée, c'est une vraie gorgée, pas une lichette.</p></div>
+      <div class="rcard"><div class="n">04</div><h4>Le vivier</h4><p>Un pichet de sangria en permanence au centre du terrain, rempli par le capitaine de port. C'est là qu'on puise pour toutes les doses.</p></div>
+      <div class="rcard"><div class="n">05</div><h4>Le capitaine de port</h4><p>Un arbitre unique pour l'après-midi : il chronomètre, il tient les scores, il tranche. Sa décision est sans appel. Il ne joue pas.</p></div>
+    </div>
+
+    <h3 class="sub">Le statut particulier de JB</h3>
+    <div class="poisson">
+      <h3>Le Gros Poisson</h3>
+      <p class="i">JB n'appartient à aucune équipe. Il porte le dossard toute l'après-midi.</p>
+      <ul>
+        <li>À chaque épreuve, il rejoint une équipe différente, désignée par le capitaine de port.</li>
+        <li>Si l'équipe qu'il a rejointe termine dernière, <b>il boit double</b>.</li>
+        <li>Il ne peut refuser aucun défi qu'une équipe lui lance… sauf deux fois : il dispose de <b>deux jetons de relâche</b> pour l'après-midi entier.</li>
+        <li>À 18h35, il est pesé, photographié, puis relâché. La photo est obligatoire.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="planning">
+    <h2>Le déroulé</h2>
+    <p class="sec-note">Cinq heures, dix épreuves, une pause. Les durées incluent l'installation : le capitaine de port prépare l'épreuve suivante pendant que la précédente se termine.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Heure</th><th>Épreuve</th><th>Format</th></tr></thead>
+      <tbody>
+        <tr><td class="num">14:00</td><td>Tirage des équipes, lecture du règlement, remplissage du vivier</td><td>—</td></tr>
+        <tr><td class="num">14:15</td><td><b>1.</b> Le Lancer de Ligne</td><td>Individuel</td></tr>
+        <tr><td class="num">14:40</td><td><b>2.</b> La Pêche aux Canards</td><td>Équipe</td></tr>
+        <tr><td class="num">15:00</td><td><b>3.</b> Le Nœud du Pêcheur</td><td>Relais</td></tr>
+        <tr><td class="num">15:20</td><td><b>4.</b> Le Banc de Poissons</td><td>Duels</td></tr>
+        <tr><td class="num">15:55</td><td>Pause — remontée d'eau, saucisson, ravitaillement du vivier</td><td>—</td></tr>
+        <tr><td class="num">16:10</td><td><b>5.</b> L'Appât Mystère</td><td>Un par équipe</td></tr>
+        <tr><td class="num">16:35</td><td><b>6.</b> Le Moulinet</td><td>Relais</td></tr>
+        <tr><td class="num">16:55</td><td><b>7.</b> La Remontée du Filet</td><td>Duels</td></tr>
+        <tr><td class="num">17:15</td><td><b>8.</b> Le Poisson Glissant</td><td>Relais</td></tr>
+        <tr><td class="num">17:35</td><td><b>9.</b> La Criée</td><td>Enchères</td></tr>
+        <tr><td class="num">18:00</td><td><b>Finale.</b> La Prise du Gros Poisson</td><td>Points doublés</td></tr>
+        <tr><td class="num">18:35</td><td>Pesée du Gros Poisson, remise du trophée, photo</td><td>—</td></tr>
+        <tr><td class="num">19:00</td><td>Fin du tournoi — apéro libre jusqu'aux fajitas</td><td>—</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="epreuves">
+    <h2>Les épreuves</h2>
+    <p class="sec-note">Chaque fiche donne la règle, le matériel et la dose. La dose, c'est la part d'alcool intégrée à l'épreuve — elle n'est pas optionnelle, c'est le barème.</p>
+
+    <article class="ep">
+      <div class="no">01</div>
+      <div>
+        <h3>Le Lancer de Ligne</h3>
+        <div class="chips"><span class="chip">Individuel</span><span class="chip">25 min</span><span class="chip">Précision</span></div>
+        <p>Une rangée de cinq gobelets pleins, numérotés de 1 à 5, alignés à cinq mètres. Chaque joueur dispose de trois lancers à la canne, crochet ou aimant au bout de la ligne. Le gobelet ferré rapporte son numéro en points à son équipe.</p>
+        <div class="dose"><span>La dose</span><p>Tout gobelet ferré est bu, cul sec, par celui qui l'a sorti de l'eau. Gobelet renversé sans être ramené : une gorgée pour l'équipe, et le gobelet est remis en jeu.</p></div>
+        <p class="matos"><b>Matos</b> — 1 canne (ou manche à balai + ficelle + gros crochet), 5 gobelets, un marqueur.</p>
+      </div>
+    </article>
+
+    <article class="ep">
+      <div class="no">02</div>
+      <div>
+        <h3>La Pêche aux Canards</h3>
+        <div class="chips"><span class="chip">Équipe</span><span class="chip">20 min</span><span class="chip">Hasard</span></div>
+        <p>Dix canards flottent dans la bassine, un chiffre inscrit sous chacun. Chaque équipe en pêche trois à la canne, sans les mains. Chiffre pair : autant de points. Chiffre impair : autant de gorgées.</p>
+        <div class="dose"><span>La dose</span><p>Environ une douzaine de gorgées par équipe, à répartir librement entre les équipiers — c'est là que les alliances se font et se défont.</p></div>
+        <p class="matos"><b>Matos</b> — 1 grande bassine, 10 canards en plastique, 1 marqueur indélébile, 1 canne.</p>
+      </div>
+    </article>
+
+    <article class="ep">
+      <div class="no">03</div>
+      <div>
+        <h3>Le Nœud du Pêcheur</h3>
+        <div class="chips"><span class="chip">Relais</span><span class="chip">20 min</span><span class="chip">Dextérité</span></div>
+        <p>Chaque équipier doit nouer un nœud de cabestan autour d'un piquet planté dans le jardin — d'une seule main. L'autre main tient un verre rempli à ras bord, qui ne doit ni se vider ni se renverser. Première équipe à boucler la chaîne.</p>
+        <div class="dose"><span>La dose</span><p>Chaque éclaboussure constatée par le capitaine de port coûte une gorgée, bue immédiatement dans le verre en question. Qui finit son verre avant la fin du relais fait recommencer son équipe.</p></div>
+        <p class="matos"><b>Matos</b> — 4 piquets ou pieds de table, 4 cordes d'un mètre, 4 verres.</p>
+      </div>
+    </article>
+
+    <article class="ep">
+      <div class="no">04</div>
+      <div>
+        <h3>Le Banc de Poissons</h3>
+        <div class="chips"><span class="chip">Duels</span><span class="chip">35 min</span><span class="chip">Adresse</span></div>
+        <p>Un beer-pong, mais les quinze gobelets sont disposés en forme de poisson : la tête, le corps, la nageoire caudale. Deux tables en parallèle, demi-finales puis finale. La nageoire caudale vaut double au décompte.</p>
+        <div class="dose"><span>La dose</span><p>Règle classique : chaque gobelet touché est bu sur-le-champ par l'équipe qui le possède. Comptez trois bières par équipe sur l'épreuve.</p></div>
+        <p class="matos"><b>Matos</b> — 2 tables, 60 gobelets, 6 balles de ping-pong, 2 packs de bière.</p>
+      </div>
+    </article>
+
+    <article class="ep">
+      <div class="no">05</div>
+      <div>
+        <h3>L'Appât Mystère</h3>
+        <div class="chips"><span class="chip">Un par équipe</span><span class="chip">25 min</span><span class="chip">Dégustation</span></div>
+        <p>Cinq verres opaques, cinq alcools différents. Chaque équipe désigne son dégustateur : bandeau sur les yeux, pince à linge sur le nez. Il doit nommer les cinq. Deux points par bonne réponse.</p>
+        <div class="dose"><span>La dose</span><p>Chaque erreur oblige le dégustateur à finir le verre concerné. Cinq erreurs, cinq verres. Choisissez bien votre dégustateur — ou très mal, c'est plus drôle.</p></div>
+        <p class="matos"><b>Matos</b> — 5 verres opaques, 1 bandeau, 4 pinces à linge, 5 alcools bien distincts.</p>
+      </div>
+    </article>
+
+    <article class="ep">
+      <div class="no">06</div>
+      <div>
+        <h3>Le Moulinet</h3>
+        <div class="chips"><span class="chip">Relais</span><span class="chip">20 min</span><span class="chip">Équilibre</span></div>
+        <p>Front posé sur le manche de la canne plantée au sol, dix tours sur soi-même, puis slalom entre six bouteilles jusqu'à la ligne d'arrivée. Relais chronométré, toute l'équipe y passe.</p>
+        <div class="dose"><span>La dose</span><p>Un verre à descendre à l'arrivée avant de passer le relais. Chaque bouteille renversée pendant le slalom : cinq secondes de pénalité et une gorgée de plus.</p></div>
+        <p class="matos"><b>Matos</b> — 1 manche à balai, 6 bouteilles vides, 12 verres, 1 chrono.</p>
+      </div>
+    </article>
+
+    <article class="ep">
+      <div class="no">07</div>
+      <div>
+        <h3>La Remontée du Filet</h3>
+        <div class="chips"><span class="chip">Duels</span><span class="chip">20 min</span><span class="chip">Force</span></div>
+        <p>Tir à la corde en tournoi à élimination directe, deux manches gagnantes par duel. Terrain plat, pas de chaussures de ville, et un foulard noué au milieu de la corde comme repère.</p>
+        <div class="dose"><span>La dose</span><p>L'équipe battue boit trois gorgées par duel perdu. En finale, le dernier de chaque corde tire avec un verre plein dans la main libre : ce qu'il en reste à la fin, il le boit, ce qu'il a renversé, son équipe le paie en gorgées.</p></div>
+        <p class="matos"><b>Matos</b> — 1 corde de 10 mètres, 1 foulard, 2 verres.</p>
+      </div>
+    </article>
+
+    <article class="ep">
+      <div class="no">08</div>
+      <div>
+        <h3>Le Poisson Glissant</h3>
+        <div class="chips"><span class="chip">Relais</span><span class="chip">20 min</span><span class="chip">Coordination</span></div>
+        <p>Un ballon de baudruche rempli d'eau doit remonter toute la file d'équipiers. Premier passage de main en main, deuxième par-dessus la tête, troisième sans les mains du tout. Tombé ou éclaté, on repart du premier.</p>
+        <div class="dose"><span>La dose</span><p>Une gorgée pour toute l'équipe à chaque chute. Ballon éclaté : trois gorgées, et celui qui l'avait en main finit trempé — c'est la punition suffisante.</p></div>
+        <p class="matos"><b>Matos</b> — 1 sachet de ballons de baudruche, un point d'eau.</p>
+      </div>
+    </article>
+
+    <article class="ep">
+      <div class="no">09</div>
+      <div>
+        <h3>La Criée</h3>
+        <div class="chips"><span class="chip">Enchères</span><span class="chip">25 min</span><span class="chip">Stratégie</span></div>
+        <p>Cinq lots passent aux enchères, un par un. On n'enchérit pas en argent mais en gorgées à boire. L'équipe qui mise le plus haut boit sa mise immédiatement et remporte le lot.</p>
+        <p class="matos" style="margin-top:12px"><b>Les cinq lots</b> — +5 points · +8 points · immunité pour la finale · points doublés en finale · un verre offert à l'équipe de votre choix.</p>
+        <div class="dose"><span>La dose</span><p>Entièrement choisie par les équipes, donc totalement déraisonnable. C'est le moment de l'après-midi où le classement bascule et où les jambes commencent à discuter.</p></div>
+        <p class="matos"><b>Matos</b> — 5 lots écrits sur des papiers, 1 maillet ou une cuillère en bois.</p>
+      </div>
+    </article>
+
+    <article class="ep fin">
+      <div class="no">FIN</div>
+      <div>
+        <h3>La Prise du Gros Poisson</h3>
+        <div class="chips"><span class="chip">Points doublés</span><span class="chip">35 min</span><span class="chip">Finale</span></div>
+        <p>Trois manches, JB au centre. <b>Manche 1</b> — chaque équipe lui fait deviner cinq mots de pêche en mime, deux minutes au chrono. <b>Manche 2</b> — course-poursuite dans le jardin : il faut lui accrocher une pince à linge dans le dos sans se faire toucher. <b>Manche 3</b> — il désigne lui-même l'équipe qui l'a le plus fait rire de toute l'après-midi.</p>
+        <div class="dose"><span>La dose</span><p>À chaque manche, l'équipe dernière boit — et c'est JB qui désigne nommément qui, dans l'équipe, s'y colle. Il a attendu toute l'après-midi pour ça.</p></div>
+        <p class="matos"><b>Matos</b> — 20 mots écrits d'avance, 1 paquet de pinces à linge, 1 chrono, le dossard.</p>
+      </div>
+    </article>
+  </section>
+
+  <section id="scores">
+    <h2>Tableau des prises</h2>
+    <p class="sec-note">Le compteur du capitaine de port. Les boutons ajoutent ou retirent un point — pour un barème complet, cliquez autant de fois que nécessaire.</p>
+    <div class="board" id="board">
+      <div class="team" data-team="silures"><span class="nom">Les Silures</span><button type="button" data-d="-1" aria-label="Retirer un point aux Silures">−</button><span class="pts" id="pts-silures">0</span><button type="button" data-d="1" aria-label="Ajouter un point aux Silures">+</button></div>
+      <div class="team" data-team="brochets"><span class="nom">Les Brochets</span><button type="button" data-d="-1" aria-label="Retirer un point aux Brochets">−</button><span class="pts" id="pts-brochets">0</span><button type="button" data-d="1" aria-label="Ajouter un point aux Brochets">+</button></div>
+      <div class="team" data-team="sandres"><span class="nom">Les Sandres</span><button type="button" data-d="-1" aria-label="Retirer un point aux Sandres">−</button><span class="pts" id="pts-sandres">0</span><button type="button" data-d="1" aria-label="Ajouter un point aux Sandres">+</button></div>
+      <div class="team" data-team="goujons"><span class="nom">Les Goujons</span><button type="button" data-d="-1" aria-label="Retirer un point aux Goujons">−</button><span class="pts" id="pts-goujons">0</span><button type="button" data-d="1" aria-label="Ajouter un point aux Goujons">+</button></div>
+    </div>
+    <div class="board-foot">
+      <button class="reset" id="reset" type="button">Remettre à zéro</button>
+      <p class="local-note">Les scores restent sur le téléphone du capitaine de port — ils ne sont pas partagés avec le reste du groupe.</p>
+    </div>
+  </section>
+
+  <section id="courses">
+    <h2>À acheter vendredi</h2>
+    <p class="sec-note">Tout ce que les épreuves réclament, regroupé pour le groupe courses du vendredi après-midi. Quantités calées sur douze personnes et cinq heures de jeu.</p>
+    <div class="courses">
+      <div class="liste">
+        <h4>Matériel de pêche</h4>
+        <ul>
+          <li>2 cannes à pêche jouet, ou 2 manches à balai + ficelle + gros crochets</li>
+          <li>1 grande bassine + 10 canards en plastique</li>
+          <li>1 corde de 10 mètres pour le tir à la corde</li>
+          <li>1 sachet de ballons de baudruche</li>
+          <li>1 paquet de pinces à linge</li>
+          <li>6 bouteilles vides pour le slalom (à récupérer sur place)</li>
+        </ul>
+      </div>
+      <div class="liste">
+        <h4>Intendance</h4>
+        <ul>
+          <li>100 gobelets rouges</li>
+          <li>6 balles de ping-pong</li>
+          <li>5 verres opaques + 1 bandeau</li>
+          <li>1 marqueur indélébile + 1 grande feuille pour les scores</li>
+          <li>1 trophée : un poisson en plastique collé sur un socle</li>
+          <li>1 dossard ou t-shirt « LE GROS POISSON »</li>
+          <li>Scotch, ficelle, ciseaux</li>
+        </ul>
+      </div>
+      <div class="liste">
+        <h4>Le vivier</h4>
+        <ul>
+          <li>Sangria : 6 bouteilles de rouge, 2 L de jus d'orange, limonade, oranges et pêches</li>
+          <li>3 packs de 24 bières (surtout pour le Banc de Poissons)</li>
+          <li>6 bouteilles de rosé bien frais</li>
+          <li>5 alcools nettement différents pour l'Appât Mystère : pastis, rhum ambré, gin, liqueur de pêche, vin cuit</li>
+        </ul>
+      </div>
+      <div class="liste">
+        <h4>À côté du vivier</h4>
+        <ul>
+          <li>12 litres d'eau, en bouteilles, posées sur le terrain</li>
+          <li>Glaçons en quantité déraisonnable</li>
+          <li>Jus de fruits pour le capitaine de port</li>
+          <li>Chips, saucisson, pain — la pause de 15h55 sert à ça</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="sub">Le poste de capitaine de port</h3>
+    <div class="capitaine">
+      <p><b>Une personne sobre pour l'après-midi</b>, désignée au petit-déjeuner et pas à 14h. Elle chronomètre, tient les scores, remplit le vivier et tranche les litiges. Sans elle, les épreuves s'étalent et le tournoi meurt vers 16h.</p>
+      <p><b>Le poste tourne :</b> deux heures chacun si personne ne veut s'y coller toute l'après-midi. La règle utile, c'est que le capitaine de port du dimanche soit <b>le conducteur désigné pour la dégustation</b> — il aura eu sa journée de repos la veille.</p>
+      <p><b>Eau et pain en libre-service sur le terrain</b>, pas dans la cuisine. Cinq heures dehors avec ce barème, ça ne tient que comme ça.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span>Olympiades de la Pêche · Samedi 10 octobre 2026</span>
+    <span>Châteauneuf-du-Pape</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var teams = ['silures','brochets','sandres','goujons'];
+  function get(t){
+    try { return parseInt(localStorage.getItem('olymp.' + t) || '0', 10) || 0; } catch(e) { return 0; }
+  }
+  function set(t, v){
+    try { localStorage.setItem('olymp.' + t, String(v)); } catch(e) {}
+    document.getElementById('pts-' + t).textContent = v;
+  }
+  teams.forEach(function(t){ document.getElementById('pts-' + t).textContent = get(t); });
+
+  document.getElementById('board').addEventListener('click', function(e){
+    var btn = e.target.closest('button[data-d]');
+    if (!btn) return;
+    var t = btn.closest('.team').dataset.team;
+    set(t, Math.max(0, get(t) + parseInt(btn.dataset.d, 10)));
+  });
+
+  document.getElementById('reset').addEventListener('click', function(){
+    teams.forEach(function(t){ set(t, 0); });
+  });
+})();
+</script>
+</html>

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="fr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>Roadbook EVG de JB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&family=Chivo:ital,wght@0,400;0,600;0,800;1,400&family=Chivo+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --paper:#EFEDE3;
+    --surface:#E5E2D5;
+    --surface-2:#DAD6C6;
+    --ink:#1A1C17;
+    --ink-soft:#54574C;
+    --ink-faint:#8A8C7E;
+    --line:#C9C5B3;
+    --wine:#7A1F2B;
+    --wine-ink:#7A1F2B;
+    --ochre:#A96B0B;
+    --ochre-bg:#F3E3C6;
+    --olive:#55613F;
+    --on-wine:#F2EDE1;
+    --shadow:0 1px 0 rgba(26,28,23,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#15170F;
+      --surface:#1E2018;
+      --surface-2:#282A20;
+      --ink:#EDEBDF;
+      --ink-soft:#A9AB9B;
+      --ink-faint:#787A6C;
+      --line:#34362B;
+      --wine:#8D2433;
+      --wine-ink:#E58A96;
+      --ochre:#E0A64A;
+      --ochre-bg:#3A2D14;
+      --olive:#9BAE7A;
+      --on-wine:#F6EFE4;
+      --shadow:0 1px 0 rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#15170F;
+    --surface:#1E2018;
+    --surface-2:#282A20;
+    --ink:#EDEBDF;
+    --ink-soft:#A9AB9B;
+    --ink-faint:#787A6C;
+    --line:#34362B;
+    --wine:#8D2433;
+    --wine-ink:#E58A96;
+    --ochre:#E0A64A;
+    --ochre-bg:#3A2D14;
+    --olive:#9BAE7A;
+    --on-wine:#F6EFE4;
+    --shadow:0 1px 0 rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Chivo','Helvetica Neue',Arial,sans-serif;
+    font-size:16px;
+    line-height:1.5;
+  }
+  .wrap{max-width:820px;margin-inline:auto;padding-inline:20px}
+  a{color:var(--wine-ink)}
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:sticky;top:env(safe-area-inset-top,0px);z-index:30;
+    background:color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-in{display:flex;gap:4px;align-items:center;overflow-x:auto;padding-block:9px;scrollbar-width:none}
+  .nav-in::-webkit-scrollbar{display:none}
+  .nav a{
+    font-family:'Chivo Mono',ui-monospace,monospace;
+    font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--ink-soft);text-decoration:none;white-space:nowrap;
+    padding:5px 9px;border-radius:2px;
+  }
+  .nav a:hover{color:var(--ink);background:var(--surface)}
+  .nav .brand{
+    font-family:'Antonio',Impact,sans-serif;font-weight:700;font-size:17px;
+    letter-spacing:.02em;color:var(--wine-ink);margin-right:auto;padding-right:10px;white-space:nowrap;
+  }
+
+  /* ---------- hero ---------- */
+  header.hero{padding-block:44px 30px}
+  .eyebrow{
+    font-family:'Chivo Mono',ui-monospace,monospace;font-size:11px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 14px;
+  }
+  h1{
+    font-family:'Antonio',Impact,sans-serif;font-weight:700;
+    font-size:clamp(56px,17vw,124px);line-height:.86;letter-spacing:-.005em;
+    margin:0;text-transform:uppercase;text-wrap:balance;
+  }
+  h1 .of{color:var(--wine-ink)}
+  .lede{
+    margin:18px 0 0;max-width:36em;font-size:17px;color:var(--ink-soft);
+  }
+  .hero-meta{
+    display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;align-items:stretch;
+  }
+  .stamp{
+    border:1px solid var(--line);background:var(--surface);border-radius:3px;
+    padding:9px 13px;display:flex;flex-direction:column;gap:2px;min-width:0;
+  }
+  .stamp .k{
+    font-family:'Chivo Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-faint);
+  }
+  .stamp .v{font-weight:600;font-size:15px;font-variant-numeric:tabular-nums}
+  .stamp.count{background:var(--wine);border-color:var(--wine);color:var(--on-wine)}
+  .stamp.count .k{color:color-mix(in srgb,var(--on-wine) 65%,transparent)}
+  .stamp.count .v{font-family:'Antonio',Impact,sans-serif;font-size:26px;line-height:1;letter-spacing:.01em;padding-top:2px}
+
+  /* ---------- legend ---------- */
+  .legend{
+    display:flex;flex-wrap:wrap;gap:8px 20px;margin:34px 0 0;padding-top:16px;
+    border-top:1px solid var(--line);
+    font-family:'Chivo Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.05em;
+    color:var(--ink-faint);text-transform:uppercase;
+  }
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .sq{width:8px;height:8px;background:var(--wine);display:inline-block}
+  .ci{width:8px;height:8px;border:1.5px solid var(--ink-faint);border-radius:50%;display:inline-block}
+
+  /* ---------- day ---------- */
+  .day{margin-top:48px;scroll-margin-top:64px}
+  .day-head{
+    display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+    border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:4px;
+  }
+  .day-num{
+    font-family:'Antonio',Impact,sans-serif;font-weight:700;font-size:40px;line-height:1;
+    text-transform:uppercase;letter-spacing:.01em;
+  }
+  .day-num em{font-style:normal;color:var(--wine-ink)}
+  .day-title{
+    font-family:'Chivo Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--ink-faint);margin-left:auto;
+  }
+
+  /* ---------- timeline ---------- */
+  .slot{
+    display:grid;grid-template-columns:62px 1fr;gap:0 18px;
+    padding:18px 0;border-bottom:1px solid var(--line);position:relative;
+  }
+  .slot:last-child{border-bottom:none}
+  .slot::before{
+    content:"";position:absolute;left:61px;top:0;bottom:0;width:1px;background:var(--line);
+  }
+  .slot:first-of-type::before{top:18px}
+  .slot:last-of-type::before{bottom:calc(100% - 26px)}
+  .time{
+    font-family:'Chivo Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums;
+    font-size:14px;font-weight:600;line-height:1.35;padding-top:1px;
+    display:flex;flex-direction:column;gap:5px;align-items:flex-start;
+  }
+  .time.approx{font-weight:400;color:var(--ink-soft)}
+  .dot{position:absolute;left:58px;top:23px;z-index:2}
+  .dot.fix{width:7px;height:7px;background:var(--wine)}
+  .dot.approx{width:7px;height:7px;border:1.5px solid var(--ink-faint);border-radius:50%;background:var(--paper)}
+  .slot h3{
+    margin:0;font-size:19px;font-weight:800;letter-spacing:-.01em;line-height:1.25;text-wrap:balance;
+  }
+  .slot p{margin:6px 0 0;color:var(--ink-soft);font-size:15px;max-width:52ch}
+  .slot .sub{
+    margin-top:10px;display:flex;flex-direction:column;gap:5px;
+  }
+  .sub b{font-weight:600;color:var(--ink)}
+  .sub div{font-size:14.5px;color:var(--ink-soft)}
+  .flag{
+    display:inline-flex;align-items:center;gap:6px;margin-top:10px;
+    font-family:'Chivo Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.11em;
+    text-transform:uppercase;font-weight:600;
+    background:var(--ochre-bg);color:var(--ochre);
+    padding:4px 8px;border-radius:2px;
+  }
+  .flag::before{content:"▲";font-size:8px;line-height:1}
+  .slot.hi h3{color:var(--wine-ink)}
+
+  /* ---------- checklist ---------- */
+  .todo{margin-top:52px;scroll-margin-top:64px}
+  .todo h2, .infos h2{
+    font-family:'Antonio',Impact,sans-serif;font-weight:700;font-size:34px;line-height:1;
+    text-transform:uppercase;margin:0 0 4px;
+  }
+  .sec-note{color:var(--ink-faint);font-size:14px;margin:0 0 18px}
+  ul.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+  ul.checks li{background:var(--surface)}
+  ul.checks label{
+    display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;
+    padding:13px 15px;cursor:pointer;
+  }
+  ul.checks input{
+    appearance:none;width:17px;height:17px;border:1.5px solid var(--ink-faint);border-radius:2px;
+    margin:2px 0 0;flex:none;cursor:pointer;background:transparent;position:relative;
+  }
+  ul.checks input:checked{background:var(--olive);border-color:var(--olive)}
+  ul.checks input:checked::after{
+    content:"";position:absolute;left:4.5px;top:1px;width:5px;height:10px;
+    border:solid var(--paper);border-width:0 2px 2px 0;transform:rotate(42deg);
+  }
+  ul.checks input:focus-visible{outline:2px solid var(--wine-ink);outline-offset:2px}
+  .task{font-weight:600;font-size:15.5px;line-height:1.35}
+  .task small{display:block;font-weight:400;font-size:13.5px;color:var(--ink-soft);margin-top:3px}
+  input:checked ~ .task{text-decoration:line-through;color:var(--ink-faint)}
+  input:checked ~ .task small{color:var(--ink-faint)}
+  .when{
+    font-family:'Chivo Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-faint);white-space:nowrap;padding-top:3px;
+  }
+  .when.urgent{color:var(--ochre)}
+  .local-note{
+    font-size:12.5px;color:var(--ink-faint);margin:10px 0 0;font-style:italic;
+  }
+
+  /* ---------- infos ---------- */
+  .infos{margin-top:52px;scroll-margin-top:64px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+  .card{
+    border:1px solid var(--line);border-radius:3px;background:var(--surface);
+    padding:16px 17px;box-shadow:var(--shadow);
+  }
+  .card h4{
+    font-family:'Chivo Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-faint);margin:0 0 10px;font-weight:600;
+  }
+  .card .big{font-family:'Chivo Mono',ui-monospace,monospace;font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
+  .card p{margin:7px 0 0;font-size:14.5px;color:var(--ink-soft)}
+  .card address{font-style:normal;font-size:15.5px;line-height:1.45;font-weight:600}
+  .copy{
+    margin-top:12px;font-family:'Chivo Mono',ui-monospace,monospace;font-size:11px;
+    letter-spacing:.09em;text-transform:uppercase;font-weight:600;
+    background:transparent;color:var(--wine-ink);border:1px solid var(--line);
+    padding:7px 11px;border-radius:2px;cursor:pointer;
+  }
+  .copy:hover{background:var(--surface-2)}
+  .copy:focus-visible{outline:2px solid var(--wine-ink);outline-offset:2px}
+
+  footer{
+    margin-top:56px;padding-block:22px 40px;border-top:1px solid var(--line);
+    font-family:'Chivo Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--ink-faint);
+    display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  }
+
+  @media (max-width:520px){
+    .slot{grid-template-columns:52px 1fr;gap:0 14px}
+    .slot::before{left:51px}
+    .dot{left:48px}
+    .day-title{margin-left:0;width:100%}
+    ul.checks label{grid-template-columns:auto 1fr;row-gap:6px}
+    .when{grid-column:2;padding-top:0}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<nav class="nav">
+  <div class="wrap nav-in">
+    <span class="brand">EVG&nbsp;JB</span>
+    <a href="#ven">Ven 09</a>
+    <a href="#sam">Sam 10</a>
+    <a href="#dim">Dim 11</a>
+    <a href="#todo">À faire</a>
+    <a href="#infos">Infos</a>
+    <a href="olympiades.html">Olympiades</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">Enterrement de vie de garçon</p>
+    <h1>Week-end<br><em class="of">JB</em></h1>
+    <p class="lede">Trois jours à Châteauneuf-du-Pape. Paintball, Olympiades maison, fajitas et une déguste avant de reprendre le train. Deux horaires ne bougent pas : le train du vendredi matin et celui du dimanche soir.</p>
+    <div class="hero-meta">
+      <div class="stamp count"><span class="k">Départ dans</span><span class="v" id="countdown">—</span></div>
+      <div class="stamp"><span class="k">Dates</span><span class="v">9 → 11 oct. 2026</span></div>
+      <div class="stamp"><span class="k">Base</span><span class="v">Châteauneuf-du-Pape</span></div>
+      <div class="stamp"><span class="k">Transport</span><span class="v">TGV + 2 voitures</span></div>
+    </div>
+    <div class="legend">
+      <span><i class="sq"></i> Heure fixe, non négociable</span>
+      <span><i class="ci"></i> Heure indicative, à ajuster sur place</span>
+    </div>
+  </header>
+
+  <!-- ================= VENDREDI ================= -->
+  <section class="day" id="ven">
+    <div class="day-head">
+      <h2 class="day-num">Ven <em>09</em> oct.</h2>
+      <span class="day-title">Arrivée &amp; paintball</span>
+    </div>
+
+    <div class="slot">
+      <span class="dot fix"></span>
+      <div class="time">09:17</div>
+      <div>
+        <h3>Arrivée à Avignon TGV</h3>
+        <p>Train depuis Paris. On se regroupe sur le quai avant de sortir — personne ne part devant avec les bagages.</p>
+      </div>
+    </div>
+
+    <div class="slot">
+      <span class="dot fix"></span>
+      <div class="time">09:30</div>
+      <div>
+        <h3>Récupération des voitures</h3>
+        <p>Agence de location dans la gare. Le conducteur au nom du contrat doit avoir son permis et sa carte bancaire sur lui, sinon l'agence bloque.</p>
+      </div>
+    </div>
+
+    <div class="slot hi">
+      <span class="dot approx"></span>
+      <div class="time approx">~10:15</div>
+      <div>
+        <h3>Paintball, toute la matinée</h3>
+        <p>Terrain sur Avignon. On y reste jusqu'au déjeuner. Tenue qui craint et baskets fermées — prévenir tout le monde avant le départ de Paris.</p>
+        <span class="flag">Résa à faire — donner le nombre de joueurs</span>
+      </div>
+    </div>
+
+    <div class="slot">
+      <span class="dot approx"></span>
+      <div class="time approx">~12:45</div>
+      <div>
+        <h3>Déjeuner à emporter</h3>
+        <p>Pas de resto assis : on prend à emporter en sortant du paintball et on mange en arrivant à la maison. Ça libère tout l'après-midi.</p>
+      </div>
+    </div>
+
+    <div class="slot hi">
+      <span class="dot approx"></span>
+      <div class="time approx">~14:00</div>
+      <div>
+        <h3>Arrivée à la maison</h3>
+        <p>Airbnb de Géraldine, chemin de Pradel à Châteauneuf-du-Pape. Environ 30 min depuis Avignon TGV.</p>
+        <span class="flag">Check-in annoncé à 17:00 — demander à arriver vers 14:00</span>
+      </div>
+    </div>
+
+    <div class="slot">
+      <span class="dot approx"></span>
+      <div class="time approx">~15:00</div>
+      <div>
+        <h3>On se sépare en deux groupes</h3>
+        <div class="sub">
+          <div><b>Groupe courses</b> — le plein pour tout le week-end : carbo du soir, barbecue de samedi midi, fajitas de samedi soir, petits-déj, boissons, charbon et allume-feu.</div>
+          <div><b>Groupe maison</b> — installation des chambres, déco, et montage des épreuves des Olympiades pour samedi.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slot hi">
+      <span class="dot approx"></span>
+      <div class="time approx">~20:30</div>
+      <div>
+        <h3>Pâtes carbo XXL, puis grosse soirée</h3>
+        <p>Premier vrai repas tous ensemble. Aucun réveil prévu samedi matin, donc personne ne se retient.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SAMEDI ================= -->
+  <section class="day" id="sam">
+    <div class="day-head">
+      <h2 class="day-num">Sam <em>10</em> oct.</h2>
+      <span class="day-title">Journée Olympiades</span>
+    </div>
+
+    <div class="slot">
+      <span class="dot approx"></span>
+      <div class="time approx">~11:00</div>
+      <div>
+        <h3>Réveil libre et petit-déj</h3>
+        <p>On ne bouge pas de la maison de la journée. Dernières finitions sur les épreuves pendant que les autres émergent.</p>
+      </div>
+    </div>
+
+    <div class="slot">
+      <span class="dot approx"></span>
+      <div class="time approx">~12:30</div>
+      <div>
+        <h3>Barbecue géant</h3>
+        <p>Dans le jardin. Allumer le charbon vers midi pour avoir des braises à l'heure.</p>
+      </div>
+    </div>
+
+    <div class="slot hi">
+      <span class="dot approx"></span>
+      <div class="time approx">~15:00</div>
+      <div>
+        <h3>Les Olympiades de la Pêche</h3>
+        <p>Le gros morceau du week-end. Quatre équipes, dix épreuves sur le thème de la pêche, barème affiché et un trophée pour les vainqueurs. JB joue le rôle du Gros Poisson. Le programme complet, les règles et le matos sont sur <a href="olympiades.html">la page des Olympiades</a>.</p>
+        <span class="flag">Matos à acheter vendredi — liste dans le programme</span>
+      </div>
+    </div>
+
+    <div class="slot">
+      <span class="dot approx"></span>
+      <div class="time approx">~20:00</div>
+      <div>
+        <h3>Fajitas</h3>
+        <p>Deuxième soirée à la maison. Remise des prix des Olympiades pendant le repas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DIMANCHE ================= -->
+  <section class="day" id="dim">
+    <div class="day-head">
+      <h2 class="day-num">Dim <em>11</em> oct.</h2>
+      <span class="day-title">Déguste &amp; retour</span>
+    </div>
+
+    <div class="slot">
+      <span class="dot approx"></span>
+      <div class="time approx">~11:00</div>
+      <div>
+        <h3>Grasse mat', puis rangement</h3>
+        <p>On commence à vider la maison et à charger les voitures avant de sortir déjeuner : on ne repasse pas forcément par là.</p>
+      </div>
+    </div>
+
+    <div class="slot hi">
+      <span class="dot approx"></span>
+      <div class="time approx">~12:30</div>
+      <div>
+        <h3>Resto + dégustation</h3>
+        <p>Un domaine de Châteauneuf-du-Pape et un resto sur place. Dimanche midi en pleine saison, ça se réserve. Et il faut un conducteur sobre par voiture — à désigner la veille, pas sur le parking.</p>
+        <span class="flag">Resto et domaine à réserver</span>
+      </div>
+    </div>
+
+    <div class="slot">
+      <span class="dot approx"></span>
+      <div class="time approx">~16:00</div>
+      <div>
+        <h3>Route vers Avignon TGV</h3>
+        <p>Environ 35 min. Faire le plein d'essence avant de rendre les voitures, sinon l'agence le refacture au prix fort.</p>
+      </div>
+    </div>
+
+    <div class="slot">
+      <span class="dot approx"></span>
+      <div class="time approx">~17:00</div>
+      <div>
+        <h3>Restitution des voitures</h3>
+        <p>État des lieux avec l'agence. Vérifier que personne n'oublie d'affaires dans les coffres.</p>
+      </div>
+    </div>
+
+    <div class="slot hi">
+      <span class="dot fix"></span>
+      <div class="time">18:12</div>
+      <div>
+        <h3>Train retour → Paris Gare de Lyon</h3>
+        <p>L'heure autour de laquelle tout le dimanche s'organise. Être sur le quai à 18:00 au plus tard.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TODO ================= -->
+  <section class="todo" id="todo">
+    <h2>À boucler</h2>
+    <p class="sec-note">Ce qui n'est pas encore réservé ou tranché. Les deux premières lignes bloquent le reste du vendredi.</p>
+    <ul class="checks">
+      <li><label><input type="checkbox" id="t1"><span class="task">Réserver le paintball<small>Vendredi matin sur Avignon. Confirmer le nombre de joueurs et l'heure de début.</small></span><span class="when urgent">Urgent</span></label></li>
+      <li><label><input type="checkbox" id="t2"><span class="task">Demander à Géraldine une arrivée en début d'après-midi<small>Check-in annoncé à 17:00. Viser 14:00 pour lancer courses et installation dans la foulée.</small></span><span class="when urgent">Urgent</span></label></li>
+      <li><label><input type="checkbox" id="t3"><span class="task">Confirmer la location des voitures<small>Retrait vendredi 09:30 à Avignon TGV, restitution dimanche vers 17:00. Vérifier les conducteurs déclarés.</small></span><span class="when">Avant départ</span></label></li>
+      <li><label><input type="checkbox" id="t4"><span class="task">Réserver le resto et la dégustation de dimanche midi<small>À Châteauneuf-du-Pape. Table pour le groupe entier + créneau au domaine.</small></span><span class="when">Avant départ</span></label></li>
+      <li><label><input type="checkbox" id="t5"><span class="task">Acheter le matos des Olympiades<small>Cannes, bassine, canards, corde, gobelets, ballons, trophée. Liste complète dans le programme des Olympiades.</small></span><span class="when">Avant départ</span></label></li>
+      <li><label><input type="checkbox" id="t6"><span class="task">Faire la liste de courses<small>Carbo vendredi soir, barbecue samedi midi, fajitas samedi soir, petits-déj, boissons, charbon.</small></span><span class="when">Avant départ</span></label></li>
+      <li><label><input type="checkbox" id="t7"><span class="task">Constituer les deux groupes de vendredi après-midi<small>Qui part aux courses, qui reste préparer la maison.</small></span><span class="when">Sur place</span></label></li>
+      <li><label><input type="checkbox" id="t8"><span class="task">Désigner les conducteurs<small>Dont le conducteur sobre de chaque voiture pour la dégustation de dimanche.</small></span><span class="when">Sur place</span></label></li>
+      <li><label><input type="checkbox" id="t9"><span class="task">Choisir le logo du foulard et l'envoyer à l'imprimeur<small>Rien de retenu pour l'instant — les propositions sont à refaire.</small></span><span class="when urgent">Urgent</span></label></li>
+    </ul>
+    <p class="local-note">Les cases cochées restent sur ton téléphone uniquement — elles ne sont pas partagées avec le reste du groupe.</p>
+  </section>
+
+  <!-- ================= INFOS ================= -->
+  <section class="infos" id="infos">
+    <h2>Infos pratiques</h2>
+    <p class="sec-note">Les repères à avoir sous la main le jour J.</p>
+    <div class="cards">
+      <div class="card">
+        <h4>Train aller · Ven 09</h4>
+        <div class="big">09:17</div>
+        <p>Arrivée à Avignon TGV depuis Paris.</p>
+      </div>
+      <div class="card">
+        <h4>Train retour · Dim 11</h4>
+        <div class="big">18:12</div>
+        <p>Avignon TGV → Paris Gare de Lyon. Heure non négociable.</p>
+      </div>
+      <div class="card">
+        <h4>Voitures</h4>
+        <div class="big">09:30</div>
+        <p>Retrait à Avignon TGV vendredi, restitution dimanche vers 17:00. Plein fait avant de rendre.</p>
+      </div>
+      <div class="card">
+        <h4>La maison · Airbnb de Géraldine</h4>
+        <address id="addr">Chemin de Pradel<br>84230 Châteauneuf-du-Pape<br>Provence-Alpes-Côte d'Azur, France</address>
+        <p>Check-in annoncé à 17:00, arrivée anticipée à négocier.</p>
+        <button class="copy" id="copyBtn" type="button">Copier l'adresse</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="infos" id="annexes">
+    <h2>Les annexes</h2>
+    <p class="sec-note">Une page à part, pour ce qui demande plus de place.</p>
+    <div class="cards">
+      <div class="card">
+        <h4>Samedi après-midi</h4>
+        <address><a href="olympiades.html">Olympiades de la Pêche</a></address>
+        <p>Dix épreuves, le règlement, le barème, le tableau des scores et la liste de courses.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>EVG JB · 9–11 octobre 2026</span>
+    <span>Châteauneuf-du-Pape</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  // ---- compte à rebours jusqu'à l'arrivée du train ----
+  var target = new Date('2026-10-09T09:17:00+02:00').getTime();
+  var el = document.getElementById('countdown');
+  function tick(){
+    var diff = target - Date.now();
+    if (diff <= 0) { el.textContent = 'Ça y est'; return; }
+    var days = Math.floor(diff / 86400000);
+    var hours = Math.floor((diff % 86400000) / 3600000);
+    el.textContent = days > 0 ? (days + (days > 1 ? ' jours' : ' jour')) : (hours + ' h');
+  }
+  tick();
+  setInterval(tick, 60000);
+
+  // ---- cases à cocher, mémorisées localement ----
+  var boxes = document.querySelectorAll('ul.checks input[type="checkbox"]');
+  Array.prototype.forEach.call(boxes, function(box){
+    try {
+      if (localStorage.getItem('evgjb.' + box.id) === '1') box.checked = true;
+    } catch(e) {}
+    box.addEventListener('change', function(){
+      try {
+        if (box.checked) localStorage.setItem('evgjb.' + box.id, '1');
+        else localStorage.removeItem('evgjb.' + box.id);
+      } catch(e) {}
+    });
+  });
+
+  // ---- copier l'adresse ----
+  var btn = document.getElementById('copyBtn');
+  var addr = document.getElementById('addr');
+  btn.addEventListener('click', function(){
+    var text = addr.innerText.replace(/\n/g, ', ');
+    var done = function(){
+      btn.textContent = 'Adresse copiée';
+      setTimeout(function(){ btn.textContent = "Copier l'adresse"; }, 2200);
+    };
+    try {
+      navigator.clipboard.writeText(text).then(done, function(){
+        btn.textContent = 'Copie impossible — sélectionne le texte';
+      });
+    } catch(e) {
+      btn.textContent = 'Copie impossible — sélectionne le texte';
+    }
+  });
+})();
+</script>
+</html>
